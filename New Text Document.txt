@@ -1,0 +1,8 @@
+		footer block
+backer, supporter, patrion, open source, git fork butttin at top corner,
+
+
+
+		Our requirments
+1) vps with highspeed-high ram, high storage,high performance, robust 
+  

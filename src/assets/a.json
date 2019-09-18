@@ -1,0 +1,43 @@
+{
+    "query":
+    {
+        "id":"8digits",
+        "keywords":["xyx","yz","pq","hj"],
+        "alternatives/suggestions":["related techs or refferels"],
+        "data":[
+            {
+            "qid":"1",
+            "title":"some thing title is here",
+            "link":"https://example.com",
+            "detail":"this is the website about examples"
+            },
+            {
+            "qid":"2",
+            "title":"some thing title is here",
+            "link":"https://example.com",
+            "detail":"this is the website about examples"
+            },
+            {
+            "qid":"3",
+            "title":"some thing title is here",
+            "link":"https://example.com",
+            "detail":"this is the website about examples"
+            },
+            {
+            "qid":"4",
+            "title":"some thing title is here",
+            "link":"https://example.com",
+            "detail":"this is the website about examples"
+            },
+            {
+            "qid":"5",
+            "title":"some thing title is here",
+            "link":"https://example.com",
+            "detail":"this is the website about examples"
+            }
+        ]
+        
+
+    }
+    
+}
