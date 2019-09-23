@@ -4,13 +4,15 @@
       <!-- header -->
 
     <div class="align-middle">
-      <ab-header v-on:receive_query="fetch_data"></ab-header>
+      <ab-header v-bind:hit1="hit1"  v-on:receive_query="fetch_data"></ab-header>
     </div>
+    
 
       <!-- content -->
 
     <div class="results">
-      <results v-bind:res="res"></results>
+      <!-- <results v-bind:res="res"></results> -->
+      <results v-bind:query="query"></results>
     </div>
 
       <!-- footer -->
@@ -36,13 +38,19 @@ export default {
     return{
       query:"",
       res:[],
+      hit1:false,
     }
   },
   methods:{
     fetch_data(query){
-        this.axios.get(`https://binding290.herokuapp.com/search/${query}`).then(response=>{
-          this.res=response.data;
-        })
+      this.query=query
+      this.hit1=true;
+      // this.axios.get(`https://binding290.herokuapp.com/search/${query}`).then(response=>{
+      //     this.res=response.data;
+      //     this.hit1=false;
+      // }).catch((err)=>{
+      // this.hit1=false;
+      // })
     }
   }
 }

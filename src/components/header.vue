@@ -3,7 +3,7 @@
     <!-- logo -->
     <b-row align-h="center" class="mb-4">
       <b-col cols="3" sm="4" lg="5" xl="4">
-        <h1 v-if="!result">ab</h1>
+        <!-- <h1 v-if="!result">ab</h1> -->
       <!-- <h1 class="display-4">a</h1><span class="mt-3 "><h1 class="display-4">b</h1></span>  -->
       </b-col>
     </b-row>
@@ -12,7 +12,7 @@
 
     <b-row no-gutters>
       <b-col cols="1" sm="1" md="1" offset-sm="1" lg="1"  class="pr-5 logo">
-          <img src="../assets/logoto.png" v-if="result" height="30px" alt="abda">
+          <img src="../assets/logoto.png"  height="30px" alt="abda">
       </b-col>
 
           <!-- input bar -->
@@ -35,6 +35,15 @@
           <b-btn variant="outline-secondary" @click="send_query()">O.</b-btn>
       </b-col>
     </b-row>
+    <b-row >
+      <b-col cols="7" sm="8" md="6" lg="5" xl="5" offset="5" class="mt-3" >
+        <div v-if="$store.getters.loading">
+            <b-spinner type="grow" label="Loading..."></b-spinner>
+        </div>
+      </b-col>
+    </b-row>
+
+
   </b-container>
 </template>
 
@@ -47,7 +56,8 @@ export default {
       result:true,
       query:'',
       res:'',
-      suggests:[]
+      suggests:[],
+      messagebox:'nomessage'
     }
   },
   watch:{
@@ -62,8 +72,71 @@ export default {
     // query goes towards app
 
     send_query(){
-      this.$emit('receive_query',this.query);
+      // this.$store.commit("modload","true")
+      this.$store.commit('setquery',this.query)
+      // this.$emit('receive_query',this.query);
+      if(this.$store.getters.isweb){this.fetchweb()}
+      else if(this.$store.getters.isimg){this.fetchimg()}
+      else if(this.$store.getters.isvid){this.fetchvideo()}
+      else if(this.$store.getters.isaud){this.fetchaudio()}
+      else if(this.$store.getters.isapp){this.fetchapp()}
     },
+    fetchweb(){
+      // let query=this.$store.getters.query;
+      this.$store.commit('modload',true);
+      this.axios.get(`https://binding290.herokuapp.com/search?q=${this.query}&pn=0`).then(response=>{
+          this.$store.commit('saveweb',response.data);
+      }).catch(()=>{
+      })
+    },
+    fetchimg(){
+       this.$store.commit('modload',true);
+      this.axios.get(`https://binding290.herokuapp.com/images?q=${this.query}&pn=0`).then(response=>{
+          this.$store.commit('saveimg',response.data);
+      }).catch(()=>{
+      })
+    },
+    fetchvideo(){},
+    fetchaudio(){},
+    fetchapp(){},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // here suggetions will fetch
 
@@ -71,8 +144,9 @@ export default {
       if(this.query.length!==0){
         this.axios
         .get(`https://sug18.herokuapp.com/suggest/${this.query}`).then((response)=>{
-          this.suggests=null;
-          this.suggests=response.data;
+          this.suggests=this.suggests.concat(response.data);
+          this.suggests = [...new Set(this.suggests)];
+          // this.suggests=;
             }).catch(()=>{})
                 }
         }
