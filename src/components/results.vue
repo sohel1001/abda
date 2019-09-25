@@ -2,16 +2,16 @@
     <div class="container"> 
         <div>
   <b-nav tabs fill>
-    <b-nav-item v-if="!$store.getters.isweb"  @click="setweb()">w</b-nav-item>
-    <b-nav-item v-if="$store.getters.isweb" active>w</b-nav-item>
-    <b-nav-item v-if="!$store.getters.isimg" @click="setimage()">i</b-nav-item>
-    <b-nav-item  v-if="$store.getters.isimg" active>i</b-nav-item>
-    <b-nav-item v-if="!$store.getters.isvid" @click="setvideo()">v</b-nav-item>
-    <b-nav-item v-if="$store.getters.isvid" active>v</b-nav-item>
-    <b-nav-item v-if="!$store.getters.isaud" @click="setaudio()">a</b-nav-item>
-    <b-nav-item v-if="$store.getters.isaud" active>a</b-nav-item>
-    <b-nav-item v-if="!$store.getters.isapp" @click="setapp()">A</b-nav-item>
-    <b-nav-item v-if="$store.getters.isapp" active>A</b-nav-item>
+    <b-nav-item v-if="!$store.getters.isweb"  @click="setweb()"><img src="./../assets/svg/001-language.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item v-if="$store.getters.isweb" active><img src="./../assets/svg/002-global.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item v-if="!$store.getters.isimg" @click="setimage()"><img src="./../assets/svg/003-picture.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item  v-if="$store.getters.isimg" active><img src="./../assets/svg/004-frame-landscape.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item v-if="!$store.getters.isvid" @click="setvideo()"><img src="./../assets/svg/010-play-button-1.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item v-if="$store.getters.isvid" active><img src="./../assets/svg/009-play-button.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item v-if="!$store.getters.isaud" @click="setaudio()"><img src="./../assets/svg/006-music-player-1.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item v-if="$store.getters.isaud" active><img src="./../assets/svg/005-music-player.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item v-if="!$store.getters.isapp" @click="setapp()"><img src="./../assets/svg/008-android-1.svg" height="20px" width="20px" alt="web"></b-nav-item>
+    <b-nav-item v-if="$store.getters.isapp" active><img src="./../assets/svg/007-android.svg" height="20px" width="20px" alt="web"></b-nav-item>
   </b-nav>
 </div>
 
@@ -22,6 +22,8 @@
         <keep-alive>
         <courosel v-if="$store.getters.isimg"></courosel>
         <abweb v-if="$store.getters.isweb"></abweb>
+        <apps v-if="$store.getters.isapp"></apps>
+        <vid v-if="$store.getters.isvid"></vid>
 <!-- :res="res" -->
         </keep-alive>
         <!-- this is result box where all results will show -->
@@ -30,10 +32,14 @@
 <script>
 import web from './modes/web'
 import courosel from './modes/courosel'
+import apps from './modes/apps'
+import vid from './modes/vid'
 export default {
     components:{
         "abweb":web,
-        courosel
+        courosel,
+        apps,
+        vid
     },
     props:{
         // res:Object,
@@ -57,11 +63,11 @@ export default {
             this.$store.commit('modapp',false);
             // return true
         },
-        setweb(){  this.setmode(); this.$store.commit('modweb',"true")},
-        setimage(){this.setmode(); this.$store.commit('modimg',"true")},
-        setvideo(){this.setmode(); this.$store.commit('modvid',"true")},
-        setaudio(){this.setmode(); this.$store.commit('modaud',"true")},
-        setapp(){  this.setmode(); this.$store.commit('modapp',"true")},
+        setweb(){  this.setmode(); this.$store.commit('modweb',"true");this.$emit("fetchweb")},
+        setimage(){this.setmode(); this.$store.commit('modimg',"true");this.$emit("fetchimg")},
+        setvideo(){this.setmode(); this.$store.commit('modvid',"true");this.$emit("fetchvid")},
+        setaudio(){this.setmode(); this.$store.commit('modaud',"true");this.$emit("fetchaud")},
+        setapp(){  this.setmode(); this.$store.commit('modapp',"true");this.$emit("fetchapp")},
     }
 }
 </script>

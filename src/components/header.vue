@@ -57,7 +57,6 @@ export default {
       query:'',
       res:'',
       suggests:[],
-      messagebox:'nomessage'
     }
   },
   watch:{
@@ -72,34 +71,16 @@ export default {
     // query goes towards app
 
     send_query(){
-      // this.$store.commit("modload","true")
       this.$store.commit('setquery',this.query)
-      // this.$emit('receive_query',this.query);
-      if(this.$store.getters.isweb){this.fetchweb()}
-      else if(this.$store.getters.isimg){this.fetchimg()}
-      else if(this.$store.getters.isvid){this.fetchvideo()}
-      else if(this.$store.getters.isaud){this.fetchaudio()}
-      else if(this.$store.getters.isapp){this.fetchapp()}
+      if(this.$store.getters.isweb){this.$emit("fetchweb",this.query)}
+      else if(this.$store.getters.isimg){this.$emit("fetchimg",this.query)}
+      else if(this.$store.getters.isvid){this.$emit("fetchvid",this.query)}
+      else if(this.$store.getters.isaud){this.$emit("fetchaud",this.query)}
+      else if(this.$store.getters.isapp){this.$emit("fetchapp",this.query)}
     },
-    fetchweb(){
-      // let query=this.$store.getters.query;
-      this.$store.commit('modload',true);
-      this.axios.get(`https://binding290.herokuapp.com/search?q=${this.query}&pn=0`).then(response=>{
-          this.$store.commit('saveweb',response.data);
-      }).catch(()=>{
-      })
-    },
-    fetchimg(){
-       this.$store.commit('modload',true);
-      this.axios.get(`https://binding290.herokuapp.com/images?q=${this.query}&pn=0`).then(response=>{
-          this.$store.commit('saveimg',response.data);
-      }).catch(()=>{
-      })
-    },
-    fetchvideo(){},
-    fetchaudio(){},
-    fetchapp(){},
 
+
+    
 
 
 
@@ -146,7 +127,6 @@ export default {
         .get(`https://sug18.herokuapp.com/suggest/${this.query}`).then((response)=>{
           this.suggests=this.suggests.concat(response.data);
           this.suggests = [...new Set(this.suggests)];
-          // this.suggests=;
             }).catch(()=>{})
                 }
         }

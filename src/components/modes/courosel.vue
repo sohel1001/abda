@@ -11,10 +11,8 @@
 
 <script>
 import VueGallerySlideshow from 'vue-gallery-slideshow'
-import results from './results.json'
 export default {
   props:{
-    imagequery:String
   },
   components: {
       VueGallerySlideshow
@@ -24,14 +22,13 @@ export default {
         view:false,
         selected:[],
         proxyimages:[],
-        images:[...results]
-,index:0      }
-    },
-    computed:{
+        index:0      }
+          },
+  computed:{
       getrawimages(){
         let setraw=[];
-        for(let i=0;i<this.images.length;i++){
-          setraw.push(this.images[i].uri)
+        for(let i=0;i<this.$store.getters.imageresults.length;i++){
+          setraw.push(this.$store.getters.imageresults[i].uri)
         }
         return setraw
       }
@@ -42,14 +39,6 @@ export default {
         this.view=true
       },
   },
-        // mounted(){
-        //    this.axios
-        //   .get(`http://127.0.0.1:8082/search/hala+al+turk`).then((response)=>{
-        //     this.images=response.data;
-        //     // this.suggests = [...new Set(this.suggests)];
-        //     // this.suggests=;
-        //       }).catch(()=>{})
-        // }
 }
 </script>
 
@@ -95,23 +84,23 @@ body {
 }
 @media (max-width: 1000px) {
   #photos {
+  -moz-column-count:    4;
+  -webkit-column-count: 4;
+  column-count:         4;
+  }
+}
+@media (max-width: 800px) {
+  #photos {
   -moz-column-count:    3;
   -webkit-column-count: 3;
   column-count:         3;
   }
 }
-@media (max-width: 800px) {
+@media (max-width: 400px) {
   #photos {
   -moz-column-count:    2;
   -webkit-column-count: 2;
   column-count:         2;
-  }
-}
-@media (max-width: 400px) {
-  #photos {
-  -moz-column-count:    1;
-  -webkit-column-count: 1;
-  column-count:         1;
   }
 }
 </style>

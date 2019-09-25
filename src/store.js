@@ -19,7 +19,11 @@ export default new Vuex.Store({
     isapp:false,
   },
   mutations: {
-    setquery(state,q){state.query=q},
+    setquery(state,q){state.query=q;state.webresults=""
+      state.imageresults="";
+      state.videoresults="";
+      state.audioresults="";
+      state.appresults=""},
     modweb(state,q){state.isweb=q},
     modimg(state,q){state.isimg=q},
     modvid(state,q){state.isvid=q},
