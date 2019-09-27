@@ -37,9 +37,7 @@
     </b-row>
     <b-row >
       <b-col cols="7" sm="8" md="6" lg="5" xl="5" offset="5" class="mt-3" >
-        <div v-if="$store.getters.loading">
-            <b-spinner type="grow" label="Loading..."></b-spinner>
-        </div>
+        
       </b-col>
     </b-row>
 
@@ -57,6 +55,7 @@ export default {
       query:'',
       res:'',
       suggests:[],
+      
     }
   },
   watch:{

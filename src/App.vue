@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-
+<div v-if="$store.getters.loading">
+            <b-progress :max="max">
+                <b-progress-bar :value="value" :label="`${((value / max) * 100).toFixed(2)}%`"></b-progress-bar>
+            </b-progress>
+            <!-- <b-spinner type="grow" label="Loading..."></b-spinner> -->
+        </div>
       <!-- header -->
 
     <div class="align-middle">
 
-      <ab-header @fetchweb="checkwebq()" @fetchimg="checkimgq()" @fetchapp="checkappq()" @fetchvid="checkvidq()"></ab-header>
+      <ab-header @fetchweb="checkwebq()" @fetchimg="checkimgq()" @fetchapp="checkappq()" @fetchvid="checkvidq()" @fetchaud="checkaudq()"></ab-header>
 
     </div>
 
@@ -13,7 +18,7 @@
 
     <div class="results" >
 
-      <results @fetchweb="checkwebq()" @fetchimg="checkimgq()" @fetchapp="checkappq()" @fetchvid="checkvidq()"></results>
+      <results @fetchweb="checkwebq()" @fetchimg="checkimgq()" @fetchapp="checkappq()" @fetchvid="checkvidq()" @fetchaud="checkaudq()"></results>
 
     </div>
 
@@ -44,6 +49,9 @@ export default {
       vidq:'',
       audq:'',
       appq:'',
+      value: 33.333333333,
+        max: 35
+      
     }
   },
 
@@ -99,8 +107,8 @@ export default {
 
     fetchvideo(){
       this.$store.commit('modload',true);
-      this.axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAq4ALvqOE08oCXDMyHy9XdbvpNsuuZrpA&q=${this.$store.getters.query}&maxResults=25`).then(response=>{
-          this.$store.commit('savevid',response.data.items);
+      this.axios.get(`https://binding290.herokuapp.com/vids?q=${this.$store.getters.query}`).then(response=>{
+          this.$store.commit('savevid',response.data);
       }).catch(()=>{
         this.$store.commit('modload',false);
       })
@@ -109,7 +117,14 @@ export default {
 // fetch audio results
 
 
-    fetchaudio(){},
+    fetchaudio(){
+      this.$store.commit('modload',true);
+      this.axios.get(`https://binding290.herokuapp.com/aud?q=${this.$store.getters.query}`).then(response=>{
+          this.$store.commit('saveaud',response.data);
+      }).catch(()=>{
+        this.$store.commit('modload',false);
+      })
+    },
 
 
 // fetch apps results
@@ -117,8 +132,8 @@ export default {
 
     fetchapp(){
       this.$store.commit('modload',true);
-      this.axios.get(`http://ws75.aptoide.com/api/7/apps/search?query=${this.$store.getters.query}`).then(response=>{
-          this.$store.commit('saveapp',response.data.datalist.list);
+      this.axios.get(`https://binding290.herokuapp.com/apps?q=${this.$store.getters.query}`).then(response=>{
+          this.$store.commit('saveapp',response.data.list);
       }).catch(()=>{
         this.$store.commit('modload',false);
       })
@@ -136,6 +151,13 @@ export default {
 }
 </script>
 <style>
+.progress {
+    height: 2px !important;
+    transition: 3s all ease
+}
+.progress span{
+  display: none
+}
 .container-fluid{
   height: 100%;
 }

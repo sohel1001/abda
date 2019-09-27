@@ -24,7 +24,7 @@ export default {
 
 <style>
 .card-img-left {
-    height: 100px;
+    height: 70px;
 }
 .container-fluid, .mycontainer{
   max-width:766px !important;

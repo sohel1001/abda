@@ -24,6 +24,7 @@
         <abweb v-if="$store.getters.isweb"></abweb>
         <apps v-if="$store.getters.isapp"></apps>
         <vid v-if="$store.getters.isvid"></vid>
+        <audi v-if="$store.getters.isaud"></audi>
 <!-- :res="res" -->
         </keep-alive>
         <!-- this is result box where all results will show -->
@@ -34,12 +35,14 @@ import web from './modes/web'
 import courosel from './modes/courosel'
 import apps from './modes/apps'
 import vid from './modes/vid'
+import audi from './modes/audi'
 export default {
     components:{
         "abweb":web,
         courosel,
         apps,
-        vid
+        vid,
+        audi
     },
     props:{
         // res:Object,
