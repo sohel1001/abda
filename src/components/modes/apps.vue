@@ -15,13 +15,10 @@
     </b-row></div>
   </div>
 </template>
-
 <script>
 export default {
-
 }
 </script>
-
 <style>
 .card-img-left {
     height: 70px;
@@ -32,7 +29,6 @@ export default {
 .myimage{
   padding: 10px;
   border-radius: 15px;
-
 }
 .card.mb-3.myimage.flex-row{
   min-height: 112px;
@@ -47,7 +43,6 @@ margin-bottom: -1rem !important
   font-size: 20px !important;
   margin-top: -5px !important;
   color: #4b4848;
-  
 }
 .time,.version{margin-bottom: -0.5rem;}
 .btn.btn-secondary {

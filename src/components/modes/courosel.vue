@@ -1,19 +1,16 @@
 <template>
-    <div id="app">
-  <section id="photos">
-    <div v-for="(im, i) in $store.getters.imageresults">
-    <img class="image"  :src="im.image" @click="onClick(i)">
-  <vue-gallery-slideshow v-if="view" :images="getrawimages" :index="index" @close="index = null"></vue-gallery-slideshow>
-    </div>
-</section>
+  <div id="app">
+    <section id="photos">
+      <div v-for="(im, i) in $store.getters.imageresults">
+        <img class="image"  :src="im.image" @click="onClick(i)">
+        <vue-gallery-slideshow v-if="view" :images="getrawimages" :index="index" @close="index = null"></vue-gallery-slideshow>
       </div>
+    </section>
+  </div>
 </template>
-
 <script>
 import VueGallerySlideshow from 'vue-gallery-slideshow'
 export default {
-  props:{
-  },
   components: {
       VueGallerySlideshow
     },
@@ -22,13 +19,13 @@ export default {
         view:false,
         selected:[],
         proxyimages:[],
-        index:0      }
-          },
+        index:0
+        }},
   computed:{
       getrawimages(){
         let setraw=[];
         for(let i=0;i<this.$store.getters.imageresults.length;i++){
-          setraw.push(this.$store.getters.imageresults[i].uri)
+          setraw.push(this.$store.getters.imageresults[i].image)
         }
         return setraw
       }
@@ -41,11 +38,10 @@ export default {
   },
 }
 </script>
-
 <style>
 .sqre.custom-control.custom-checkbox {
     position: absolute;
-} 
+}
 body {
   font-family: sans-serif;
 }
@@ -61,15 +57,13 @@ body {
 #photos{
   /* Prevent vertical gaps */
   line-height: 0;
-   
   -webkit-column-count: 5;
   -webkit-column-gap:   0px;
   -moz-column-count:    5;
   -moz-column-gap:      0px;
   column-count:         5;
-  column-gap:           0px;  
+  column-gap:           0px;
 }
-
 #photos .image{
   /* Just in case there are inline attributes */
   width: 100% !important;

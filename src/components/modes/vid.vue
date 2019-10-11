@@ -1,26 +1,25 @@
 <template>
-  <div>
-    <div class="container-fluid mycontainer"  v-for="vid in $store.getters.videoresults">
-    <div class="box"><b-row><b-col cols="12" sm="12" md="">
-      <div class="mt-4">
-        <b-card img-left class="mb-3 myimage">
-        <b-row>
-          <b-col cols="12" md="6">
-        <div class="vidbox">
-    <LazyYoutubeVideo  :url="`https://www.youtube.com/watch?v=${vid.id.videoId}`" />
-        </div>
+  <div><div class="container-fluid mycontainer"  v-for="vid in $store.getters.videoresults">
+      <div class="box">
+        <b-row><b-col cols="12" sm="12" md="">
+        <div class="mt-4">
+          <b-card img-left class="mb-3 myimage">
+            <b-row><b-col cols="12" md="6">
+                <div class="vidbox">
+                  <LazyYoutubeVideo  :url="`https://www.youtube.com/watch?v=${vid.id.videoId}`" />
+                </div>
+                </b-col>
+                <b-col cols="12" md="5">
+                  <p class="time">{{vid.snippet.title}}</p>
+                </b-col>
+            </b-row>
+          </b-card>
+          </div>
           </b-col>
-          <b-col cols="12" md="5">
-        <p class="time">{{vid.snippet.title}}</p>
-          </b-col>
-        </b-row>
-        </b-card>
-      </div></b-col>
-    </b-row></div>
-  </div>
+        </b-row></div>
+    </div>
   </div>
 </template>
-
 <script>
 import LazyYoutubeVideo from 'vue-lazy-youtube-video'
 export default {
@@ -32,7 +31,6 @@ export default {
 }
 </script>
 
-<style>
 <style>
 .card-img-left {
     height: 100px;
@@ -58,7 +56,6 @@ margin-bottom: -1rem !important
   font-size: 20px !important;
   margin-top: -5px !important;
   color: #4b4848;
-  
 }
 .time,.version{margin-bottom: -0.5rem;}
 .btn.btn-secondary {

@@ -1,44 +1,42 @@
 <template>
   <div class="container-fluid mycontainer" >
-
-<!-- for loop -->
+<!--start for loop -->
 <!-- v-for="aud in $store.getters.audioresults" -->
-    <div class="box"  v-for="aud in $store.getters.audioresults"><b-row><b-col cols="12" sm="12" md="" v-on:click="playd(aud.uri)">
+    <div class="box"  v-for="aud in $store.getters.audioresults"><b-row><b-col cols="12" sm="12" md="" v-on:click="playd(aud.title,aud.artist)">
       <div class="mt-4">
-        <b-card :img-src="'https://www.pagalworld.name'+aud.snip" img-alt='thumb' img-left class="mb-3 myimage">
+        <b-card :img-src="aud.thumb" img-alt='thumb' img-left class="mb-3 myimage">
         <b-card-text>
-          <b>{{aud.title}}</b>
+          <b>{{aud.title}}</b><br>
+          <small>{{aud.artist}}</small>
         </b-card-text>
-        <b-btn>Get</b-btn>
+        <b-btn>Play</b-btn>
         </b-card>
       </div></b-col>
     </b-row></div>
-
 <!-- end for loop -->
-
   </div>
 </template>
-
 <script>
 export default {
-    data(){
-        return{
-          dummy:'https://www.pagalworld.name/img/default_mp3.png'
-
-        }
-    },
+  data(){
+      return{
+      }
+  },
 methods:{
-    playd(lin){
-      var newlink=lin.replace(`/`,'').replace(`/download.html`,'');
-      this.axios.get(`http://binding290.herokuapp.com/dwn?link=${newlink}`).then((response)=>{
-
-        this.$emit("playd",response.data)
-      })
+    playd(lin,artist){
+      // var q=this.$store.getters.query
+      // lin=lin.slice(0,50);
+      // if(!lin.toLowerCase().includes(q.toLowerCase())){
+      // lin=lin+' '+this.$store.getters.query
+      // }
+      // var newlink=lin.replace(`/`,'').replace(`/download.html`,'');
+      // this.axios.get(`https://binding290.herokuapp.com/vids?q=${lin} by ${artist} lyrics`).then((response)=>{
+        this.$emit("playd",`${lin} by ${artist} lyrics`)
+      // })
     }
-}
+  }
 }
 </script>
-
 <style>
 .card-img-left {
     height: 100px;
